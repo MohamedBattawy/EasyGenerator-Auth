@@ -26,4 +26,17 @@ export class PasswordUtils {
     const salt = await bcrypt.genSalt(saltRounds);
     return await bcrypt.hash(pepperedPassword, salt);
   }
+
+  /**
+   * Compare a plain password with a hashed password
+   */
+  static async comparePassword(
+    plainPassword: string,
+    hashedPassword: string,
+  ): Promise<boolean> {
+    const pepper = this.getPepper();
+    const pepperedPassword = plainPassword + pepper;
+
+    return await bcrypt.compare(pepperedPassword, hashedPassword);
+  }
 }
