@@ -1,11 +1,22 @@
-import './App.css'
+import { Route, Routes } from 'react-router-dom';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { HomePage, NotFoundPage, UserPage } from './pages';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-    </div>
-  )
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route 
+        path="/user" 
+        element={
+          <ProtectedRoute>
+            {(user) => <UserPage user={user} />}
+          </ProtectedRoute>
+        } 
+      />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;

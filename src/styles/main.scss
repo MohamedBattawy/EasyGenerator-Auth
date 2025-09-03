@@ -1,0 +1,133 @@
+// Color variables
+$primary: #007bff;
+$primary-dark: #0056b3;
+$background: #f5f5f5;
+$white: #ffffff;
+$text-dark: #333;
+$text-light: #666;
+$border: #ddd;
+$error-bg: #f8d7da;
+$error-text: #721c24;
+$error-border: #f5c6cb;
+$disabled: #ccc;
+
+// Basic reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: $background;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Container
+.container {
+  background: $white;
+  border-radius: 8px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 1rem;
+}
+
+// Form styles
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: $text-dark;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid $border;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: $primary;
+}
+
+// Button
+.btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: $primary;
+  color: $white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: $primary-dark;
+}
+
+.btn:disabled {
+  background: $disabled;
+  cursor: not-allowed;
+}
+
+// Toggle form
+.toggle-form {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.toggle-form button {
+  background: none;
+  border: none;
+  color: $primary;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+// User info
+.user-info {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.user-info h3 {
+  color: $text-dark;
+  margin-bottom: 0.5rem;
+}
+
+.user-info p {
+  color: $text-light;
+  margin-bottom: 0.25rem;
+}
+
+// Actions
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.actions .btn {
+  flex: 1;
+}
+
+// Error
+.error {
+  background: $error-bg;
+  color: $error-text;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 1px solid $error-border;
+}
