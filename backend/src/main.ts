@@ -18,9 +18,19 @@ async function bootstrap() {
     }),
   );
 
-  app.enableCors();
-
   const port = configService.get<number>('PORT', 3000);
+
+  const clientServer = configService.get<string>(
+    'CLIENT_SERVER',
+    'http://localhost:5173',
+  );
+
+  app.enableCors({
+    origin: [clientServer],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
 
   await app.listen(port);
   console.log(`Application is running on: http://localhost:${port}`);
