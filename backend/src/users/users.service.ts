@@ -90,4 +90,10 @@ export class UsersService {
       throw new UnauthorizedException('Invalid or expired token');
     }
   }
+
+  async logout(): Promise<{ message: string }> {
+    return Promise.resolve({
+      message: 'User logged out successfully',
+    });
+  }
 }

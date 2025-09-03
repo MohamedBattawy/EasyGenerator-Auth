@@ -27,6 +27,14 @@ export class UsersController {
     private readonly jwtUtils: JwtUtils,
   ) {}
 
+  private getCookieOptions() {
+    return {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict' as const,
+    };
+  }
+
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)
   async signup(
@@ -54,9 +62,7 @@ export class UsersController {
     const result: SignInResponse = await this.usersService.signIn(signInDto);
 
     res.cookie('jwt', result.token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      ...this.getCookieOptions(),
       maxAge: this.jwtUtils.getExpirationTimeMs(),
     });
 
@@ -76,5 +82,23 @@ export class UsersController {
     }
 
     return await this.usersService.getCurrentUser(token);
+  }
+
+  @Post('logout')
+  @HttpCode(HttpStatus.OK)
+  async logout(@Req() req: Request, @Res() res: Response) {
+    const token = req.cookies?.jwt as string | undefined;
+
+    if (!token) {
+      throw new UnauthorizedException(
+        'No authentication token provided. Please login first.',
+      );
+    }
+
+    const result = await this.usersService.logout();
+
+    res.clearCookie('jwt', this.getCookieOptions());
+
+    return res.json(result);
   }
 }
