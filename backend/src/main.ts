@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
+import { setupSwagger } from './swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -32,8 +33,11 @@ async function bootstrap() {
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
+  setupSwagger(app);
+
   await app.listen(port);
   console.log(`Application is running on: http://localhost:${port}`);
+  console.log(`API Documentation available at: http://localhost:${port}/api`);
 }
 
 bootstrap().catch((error) => {
